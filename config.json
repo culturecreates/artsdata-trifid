@@ -1,11 +1,5 @@
 {
-  "baseConfig": "trifid:config-fetch.json",
-  "handler": {
-    "root": {
-      "options": {
-        "url": "file:./node_modules/tbbt-ld/dist/tbbt.nq",
-        "contentType": "application/n-quads"
-      }
-    }
-  }
+  "baseConfig": "trifid:config-sparql.json",
+  "sparqlEndpointUrl": "https:/db.artsdata.ca/repositories/artsdata",
+  "datasetBaseUrl": "http://kg.artsdata.ca/"
 }
