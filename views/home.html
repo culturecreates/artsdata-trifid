@@ -1,28 +1,23 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
 
-${include('trifid:views/header.html')}
+  ${include('trifid:views/header.html')}
 
-</head>
-<body>
+  </head>
+  <body>
 
-${include('trifid:views/navigation.html')}
+  ${include('trifid:views/navigation.html')}
 
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-      ${include('trifid:views/_home_en.html')}
+    <div class="container">
+    
+      ${include('trifid:views/_home_overview_en.html')}
+      ${include('trifid:views/_home_add_your_events_en.html')}
+      ${include('trifid:views/_home_partners_en.html')}
+
+
+      ${include('trifid:views/footer.html')}
+
     </div>
-  </div>
-
-  <ul>
-    <li>  <a href="/sparql">YASGUI user interface </li>
-  </ul>
-
-${include('trifid:views/footer.html')}
-
-</div>
-
-</body>
+  </body>
 </html>
