@@ -28,11 +28,11 @@ const config = {
 
 // add optional arguments to the configuration
 
-if (program.port) {
+
   config.listener = {
-    port: program.port
+    port: process.env.PORT || 8080
   }
-}
+
 
 if (program.sparqlEndpointUrl) {
   config.sparqlEndpointUrl = program.sparqlEndpointUrl
