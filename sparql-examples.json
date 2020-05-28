@@ -1,0 +1,5 @@
+{"artist":"/sparql/#query=PREFIX+schema%3A+%3Chttp%3A%2F%2Fschema.org%2F%3E%0APREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0ASELECT+*+WHERE+%7B%0A++%3FArtsdataID+a+schema%3APerson+%3B%0A++++++++%09++schema%3Aname+%3Fname+.%0A++OPTIONAL+%7B+%3FArtsdataID+schema%3AsameAs+%3FWikidataID+.%0A++FILTER+(regex(%3FWikidataID%2C+%22wikidata.org%2Fentity%22))+%7D%0A++OPTIONAL+%7B+%3FArtsdataID+schema%3AjobTitle+%3Ftitle+.+%7D%0A++%0A%7D+%0AORDER+BY+DESC(%3FWikidataID)++%3Fname%0A%0ALIMIT+1000&contentTypeConstruct=text%2Fturtle&contentTypeSelect=application%2Fsparql-results%2Bjson&endpoint=http%3A%2F%2Flocalhost%3A8080%2Fquery&requestMethod=POST&tabTitle=Query&headers=%7B%7D&outputFormat=table",
+"organization":"",
+"place":"",
+"event":""
+}

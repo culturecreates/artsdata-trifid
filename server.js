@@ -5,6 +5,7 @@ const path = require('path')
 const program = require('commander')
 const ConfigHandler = require('trifid-core/lib/ConfigHandler')
 const Trifid = require('trifid-core')
+const Sparqls =  require('./sparql-examples')
 
 program
   .option('-v, --verbose', 'verbose output', () => true)
@@ -53,6 +54,8 @@ trifid.init(config).then(() => {
     debug('expanded config:')
     debug(JSON.stringify(trifid.config, null, ' '))
   }
+  trifid.config.sparqls = Sparqls
+  console.log(trifid.config.sparqls)
 
   return trifid.app()
 }).catch((err) => {
