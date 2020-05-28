@@ -74,7 +74,15 @@
     "rewrite.root": {},
     "rewrite.root.url": "datasetBaseUrl"
   },
+  "i18n": {
+    "locales": ["en", "fr"],
+    "defaultLocale": "fr"
+  },
   "plugins": {
+    "i18n": {
+      "priority": 5,
+      "module": "trifid-plugin-i18n"
+    },
     "templateEngine": {
       "priority": 10,
       "module": "trifid-plugin-cotton-candy"
