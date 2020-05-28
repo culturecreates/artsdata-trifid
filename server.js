@@ -5,7 +5,7 @@ const path = require('path')
 const program = require('commander')
 const ConfigHandler = require('trifid-core/lib/ConfigHandler')
 const Trifid = require('trifid-core')
-const Sparqls =  require('./sparql-examples')
+const fs = require('fs');
 
 program
   .option('-v, --verbose', 'verbose output', () => true)
@@ -55,10 +55,33 @@ trifid.init(config).then(() => {
     debug(JSON.stringify(trifid.config, null, ' '))
   }
 
-  // configure SPARQL examples
+  // configure SPARQL examples by building URLs 
+  // for buttons to open YASGUI
   // TODO: Move date placeholder to client
 
-  trifid.config.sparqls = Sparqls
+  trifid.config.sparqls = {}
+
+  let YasguiParams = {
+    "contentTypeSelect":"application/sparql-results+json",
+    "contentTypeConstruct":"text/turtle",
+    "requestMethod":"POST",
+    "outputFormat":"table",
+    "endpoint":"/query",
+    "headers":"{}"
+  }
+
+  const examples = './examples/sparql'
+  fs.readdirSync(examples).forEach(file => {
+    var name = file.split('.')[0]
+    var url = "/sparql/#query="
+    url += encodeURIComponent(fs.readFileSync('./examples/sparql/' + file, 'utf8'))
+    Object.keys(YasguiParams).forEach(function(key) {
+      url += `&${key}=${encodeURIComponent(YasguiParams[key])}`
+    })
+    url += `&tabTitle=${name}`
+    trifid.config.sparqls[name] = url
+  });
+
   let eventSparql = trifid.config.sparqls.event
   let todayDate =  new Date().toISOString()
   trifid.config.sparqls.event =  eventSparql.replace(/DATE_PLACEHOLDER/g,  todayDate);

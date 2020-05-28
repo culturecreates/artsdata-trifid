@@ -1,0 +1,23 @@
+PREFIX schema: <http://schema.org/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT  * 
+FROM <http://kg.artsdata.ca/Place>
+WHERE {
+  
+  ?ArtsdataID a schema:Place  .
+  
+  ?ArtsdataID schema:name ?label .
+  filter (lang(?label) = "") 
+  
+  OPTIONAL { ?ArtsdataID schema:containedInPlace/schema:name ?containedIn  filter (lang(?containedIn) = "") }
+  OPTIONAL { ?ArtsdataID schema:sameAs ?WikidataID . filter (regex(?WikidataID, "wikidata.org/entity")) }
+  OPTIONAL { ?ArtsdataID schema:address/schema:streetAddress ?address . }
+  OPTIONAL { ?ArtsdataID schema:address/schema:addressLocality ?locality . }
+  OPTIONAL { ?ArtsdataID schema:address/schema:addressCountry ?country . }
+
+  filter (isURI(?ArtsdataID))
+} 
+ORDER BY DESC(?WikidataID)  ?label
+
+LIMIT 500
