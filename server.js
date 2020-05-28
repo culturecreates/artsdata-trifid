@@ -54,7 +54,14 @@ trifid.init(config).then(() => {
     debug('expanded config:')
     debug(JSON.stringify(trifid.config, null, ' '))
   }
+
+  // configure SPARQL examples
+  // TODO: Move date placeholder to client
+
   trifid.config.sparqls = Sparqls
+  let eventSparql = trifid.config.sparqls.event
+  let todayDate =  new Date().toISOString()
+  trifid.config.sparqls.event =  eventSparql.replace(/DATE_PLACEHOLDER/g,  todayDate);
   console.log(trifid.config.sparqls)
 
   return trifid.app()
