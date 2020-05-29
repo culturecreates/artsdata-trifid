@@ -1,4 +1,4 @@
-#Events with distinct name, place and date
+# Future events with distinct name, place and date
 
 PREFIX schema: <http://schema.org/>
 SELECT REDUCED  ?start  ?label  ?url
