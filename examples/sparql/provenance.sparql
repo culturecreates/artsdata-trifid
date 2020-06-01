@@ -1,0 +1,25 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX schema: <http://schema.org/>
+
+select ?graph ?label  ?date ?contributorName  ?contributorEmail  ?softwareName  ?wasDerivedFrom 
+
+where { 
+ ?graph a prov:Entity ;
+       prov:generatedAtTime ?date .
+  OPTIONAL { 
+    ?graph prov:wasAttributedTo ?contributor_uri . 
+    ?contributor_uri a schema:Organization ;
+        schema:name ?contributorName ;
+        schema:email ?contributorEmail .}
+  OPTIONAL { 
+    ?graph prov:wasAttributedTo ?tool .
+    ?tool a prov:SoftwareAgent ;
+        schema:name ?softwareName . }
+  OPTIONAL { ?graph prov:wasDerivedFrom ?wasDerivedFrom . }
+  OPTIONAL {?graph  rdfs:label ?label . }
+  OPTIONAL {?graph  schema:description ?comment . }
+} 
+
+LIMIT 100 
