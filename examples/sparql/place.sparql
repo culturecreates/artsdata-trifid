@@ -19,6 +19,6 @@ WHERE {
 
   filter (isURI(?ArtsdataID))
 } 
-ORDER BY DESC(?WikidataID)  ?label
+ORDER BY ASC(?ArtsdataID)
 
 LIMIT 500
