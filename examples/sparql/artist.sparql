@@ -3,11 +3,13 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 SELECT * WHERE {
   ?ArtsdataID a schema:Person ;
-        	  schema:name ?name .
-  OPTIONAL { ?ArtsdataID schema:sameAs ?WikidataID .
-  FILTER (regex(?WikidataID, "wikidata.org/entity")) }
+    schema:name ?name .
+  FILTER (regex(str(?ArtsdataID), "artsdata.ca/resource")) 
+  OPTIONAL { 
+    ?ArtsdataID schema:sameAs ?WikidataID .
+    FILTER (regex(str(?WikidataID), "wikidata.org/entity")) 
+  }
   OPTIONAL { ?ArtsdataID schema:jobTitle ?jobTitle . }
-  
 } 
 ORDER BY DESC(?WikidataID)  ?name
 
