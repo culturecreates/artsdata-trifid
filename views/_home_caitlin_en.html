@@ -7,7 +7,7 @@
           <h1 style="color: white">ARTSDATA.CA</h1>
           <p class="lead" style="font-size: xx-large; color:whitesmoke">A national knowledge graph for the arts</p>
           <br>
-          <button type="button" class="btn btn-warning btn-lg">Explore the data</button>
+          <!-- <button type="button" class="btn btn-warning btn-lg">Explore the data</button> -->
         </div>
         <div class="col-sm-6 col-md-3">
           <p class="text-center">
@@ -233,12 +233,12 @@
           <br>
           <p>
             Sample SPARQL queries:
-            <br><br>
-            <a class="btn btn-warning btn-lg" href="https://culturecreates.github.io/artsdata-data-model/">Events</a>
-            <a class="btn btn-warning btn-lg" href="https://culturecreates.github.io/artsdata-data-model/">Artists</a>
-            <a class="btn btn-warning btn-lg"
-              href="https://culturecreates.github.io/artsdata-data-model/">Organizations</a>
-            <a class="btn btn-warning btn-lg" href="https://culturecreates.github.io/artsdata-data-model/">Places</a>
+            <br>
+            <a class="btn btn-warning btn-lg" href="${get('config').sparqls.event}">Events</a>
+            <a class="btn btn-warning btn-lg" href="${get('config').sparqls.artist}">Artists</a>
+            <a class="btn btn-warning btn-lg" href="${get('config').sparqls.organization}">Organizations</a>
+            <a class="btn btn-warning btn-lg" href="${get('config').sparqls.place}">Places</a>
+            <a class="btn btn-warning btn-lg" href="${get('config').sparqls.provenance}">Provenance</a>
           </p>
         </div>
       </div>
@@ -329,3 +329,4 @@
     </div>
   </div>
 </div>
+<hr>
