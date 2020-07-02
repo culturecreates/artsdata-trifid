@@ -39,3 +39,7 @@ padding-right: 5%;
   display: flex;
   flex:1 1 auto;
 }
+
+.btn-lg {
+  margin:10px 0px !important
+}
