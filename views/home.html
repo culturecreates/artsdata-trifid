@@ -7,9 +7,19 @@
 </head>
 
 <body>
+
   ${include('trifid:views/navigation.html')}
-  ${include('trifid:views/_home_caitlin_en.html')}
+
+  ${getLocale() == 'en' ? '<div>' : '<div style="display:none">'} 
+    ${include('trifid:views/_home_en.html')}
+  </div>
+
+  ${getLocale() == 'fr' ? '<div>' : '<div style="display:none">'} 
+    ${include('trifid:views/_home_fr.html')}
+  </div>
+  
   ${include('trifid:views/footer.html')}
+
 </body>
 
 </html>
