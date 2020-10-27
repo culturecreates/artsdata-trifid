@@ -8,7 +8,7 @@ SELECT * WHERE {
     schema:name ?name .
   FILTER (regex(str(?ArtsdataID), "artsdata.ca/resource")) 
   OPTIONAL {  ?ArtsdataID schema:sameAs ?WikidataID .  FILTER (regex(str(?WikidataID), "wikidata.org/entity")) }
-  OPTIONAL { ?ArtsdataID schema:jobTitle ?jobTitle . }
+  OPTIONAL { ?ArtsdataID schema:hasOccupation ?occupation . }
 } 
 ORDER BY DESC(?WikidataID)  ?name
 
