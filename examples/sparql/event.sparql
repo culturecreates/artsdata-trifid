@@ -13,9 +13,8 @@ WHERE {
   OPTIONAL {   ?e schema:name  ?label_plain  filter (lang(?label_plain) = "") } .
   BIND (coalesce (?label_plain, ?label_en, ?label_fr) as ?label)
   
-    
-  OPTIONAL { ?e schema:url ?url_event . }
-  OPTIONAL { ?e ^schema:mentions/schema:url ?url_source_webpage  }
+  OPTIONAL { ?e schema:url ?url_event  } .
+  OPTIONAL { ?e ^schema:mentions/schema:url ?url_source_webpage  } .
   BIND (coalesce (?url_event, ?url_source_webpage) as ?url)
 
 } ORDER BY ?start ?label
