@@ -10,6 +10,12 @@ select ?graph ?label  ?date ?contributorName  ?contributorEmail  ?softwareName  
 where { 
  ?graph a prov:Entity ;
        prov:generatedAtTime ?date .
+ 
+  filter not exists {
+        ?graph  prov:generatedAtTime ?date2 .
+         filter (?date2 > ?date )
+    }
+
   OPTIONAL { 
     ?graph prov:wasAttributedTo ?contributor_uri . 
     ?contributor_uri a schema:Organization ;
@@ -23,5 +29,5 @@ where {
   OPTIONAL {?graph  rdfs:label ?label . }
   OPTIONAL {?graph  schema:description ?comment . }
 } 
-
+ORDER BY DESC(?date)
 LIMIT 100 
