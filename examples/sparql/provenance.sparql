@@ -7,7 +7,7 @@ PREFIX schema: <http://schema.org/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 
-select ?graph ?label  ?date ?contributorName  ?contributorEmail  ?softwareName  ?wasDerivedFrom 
+select ?graph ?label  ?date ?downloadURL  ?softwareName  ?wasDerivedFrom 
 
 where { 
  ?graph a prov:Entity ;
@@ -33,7 +33,7 @@ where {
  
   OPTIONAL {?wasDerivedFrom  foaf:primaryTopic/dcat:distribution/dcat:downloadURL ?sourceDownloadURL . }
   
-  BIND( URI(CONCAT("http://db.artsdata.ca/repositories/artsdata/rdf-graphs/service?graph=",str(?graph))) as ?artsdataDownloadURL)
+  BIND( URI(CONCAT("http://db.artsdata.ca/repositories/artsdata/rdf-graphs/service?graph=",str(?graph))) as ?downloadURL)
                                                                                            
 } 
 ORDER BY DESC(?date)
