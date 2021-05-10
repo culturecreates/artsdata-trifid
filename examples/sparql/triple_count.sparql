@@ -1,3 +1,5 @@
+# This SPARQL counts the triples uploaded to Artsdata between start data and end date.
+
 PREFIX void: <http://rdfs.org/ns/void#>
 PREFIX schema: <http://schema.org/>
 select (sum(?count) as ?triples_uploaded)  (min(?date) as ?startDate) (max(?date) as ?endDate)
