@@ -30,7 +30,7 @@ where {
     ?tool a prov:SoftwareAgent ;
         schema:name ?softwareName . }
   OPTIONAL { ?graph prov:wasDerivedFrom ?wasDerivedFrom . }
-  OPTIONAL { ?wasDerivedFrom foaf:primaryTopic/dcat:distribution/dataid:associatedAgent/rdfs:label ?associatedAgent }
+  OPTIONAL { ?wasDerivedFrom dataid:associatedAgent/rdfs:label ?associatedAgent }
   OPTIONAL { ?wasDerivedFrom foaf:primaryTopic/dct:license ?datasetLicense }
   OPTIONAL {?graph  rdfs:label ?label . }
   OPTIONAL {?graph  schema:description ?comment . }
