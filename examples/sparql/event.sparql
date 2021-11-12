@@ -1,20 +1,15 @@
-# Future events with distinct name, place and date
+# Upcoming events in Artsdata.ca
 
 PREFIX schema: <http://schema.org/>
-SELECT REDUCED  ?start  ?label  ?url
+SELECT DISTINCT  ?start ?status ?mode (sample(?label) as ?name)  (sample(?url) as ?webpage)
 WHERE {
-  ?e a schema:Event ; 
-  	 schema:startDate ?start .
-  
-  filter(?start > 'DATE_PLACEHOLDER'^^xsd:dateTime)
-	
-  OPTIONAL {   ?e schema:name ?label_en   filter (lang(?label_en) = "en")} .
-  OPTIONAL {   ?e schema:name   ?label_fr  filter (lang(?label_fr) = "fr")} .
-  OPTIONAL {   ?e schema:name  ?label_plain  filter (lang(?label_plain) = "") } .
-  BIND (coalesce (?label_plain, ?label_en, ?label_fr) as ?label)
-  
-  OPTIONAL { ?e schema:url ?url_event  } .
-  OPTIONAL { ?e ^schema:mentions/schema:url ?url_source_webpage  } .
-  BIND (coalesce (?url_event, ?url_source_webpage) as ?url)
-
-} ORDER BY ?start ?label
+  ?e a schema:Event ;
+     schema:startDate ?start ;
+     schema:name ?label ;
+     schema:url ?url ;
+     schema:eventStatus ?status ;
+     schema:eventAttendanceMode ?mode .
+  FILTER(?start > 'DATE_PLACEHOLDER'^^xsd:dateTime)
+} 
+GROUP BY ?start ?status ?mode
+LIMIT 1000
