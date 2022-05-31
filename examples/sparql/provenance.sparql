@@ -35,7 +35,7 @@ where {
   OPTIONAL {?graph  rdfs:label ?label . }
   OPTIONAL {?graph  schema:description ?comment . }
  
-  OPTIONAL {?wasDerivedFrom  foaf:primaryTopic/dcat:distribution/dcat:downloadURL ?sourceDownloadURL . }
+  # OPTIONAL {?wasDerivedFrom  foaf:primaryTopic/dcat:distribution/dcat:downloadURL ?sourceDownloadURL . }
   
   BIND( URI(CONCAT("http://db.artsdata.ca/repositories/artsdata/rdf-graphs/service?graph=",str(?graph))) as ?downloadURL)
                                                                                            
