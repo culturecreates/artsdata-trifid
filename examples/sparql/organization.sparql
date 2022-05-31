@@ -4,7 +4,6 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 SELECT  * 
 FROM <http://kg.artsdata.ca/Organization>
 WHERE {
-  
   ?ArtsdataID a schema:Organization  .
   
   ?ArtsdataID schema:name ?label .
