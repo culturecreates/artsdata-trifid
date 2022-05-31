@@ -11,6 +11,8 @@ WHERE {
     schema:hasPart ?g .
   ?event a schema:Event .
   graph ?g {?event schema:startDate ?date }
+  # Get count of upcoming events per catalog
   filter(?date > 'DATE_PLACEHOLDER'^^xsd:dateTime)
 } 
+
 group by ?catalog ?label
