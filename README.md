@@ -1,8 +1,6 @@
 # Zazuko Trifid - Linked Data Server for Artsdata.ca
 <img src="https://cdn.rawgit.com/zazuko/trifid/master/logo.svg" width="140px" height="140px" align="right" alt="Trifid-ld Logo"/>
 
-![Deploy](https://github.com/culturecreates/artsdata-trifid/workflows/Deploy/badge.svg)
-
 Trifid provides a lightweight and easy way to access Linked Data URIs via HTTP.
 In the Linked Data world this is often called [dereferencing](http://en.wikipedia.org/wiki/Dereferenceable_Uniform_Resource_Identifier).
 Trifid is inspired by [Pubby](http://wifo5-03.informatik.uni-mannheim.de/pubby/) and written in (server side) JavaScript.
