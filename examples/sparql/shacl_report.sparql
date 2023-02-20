@@ -1,0 +1,13 @@
+PREFIX schema: <http://schema.org/>
+PREFIX shacl: <http://www.w3.org/ns/shacl#>
+select ?name ?conforms (count(?report) as ?violations)
+where {
+  graph ?g {
+    ?s a shacl:ValidationReport ;
+       shacl:conforms ?conforms .
+    OPTIONAL {
+      ?s shacl:result/shacl:resultSeverity ?report .
+    }
+  }
+  ?g schema:name ?name .
+} group by  ?s  ?conforms ?name order by DESC(?violations)
