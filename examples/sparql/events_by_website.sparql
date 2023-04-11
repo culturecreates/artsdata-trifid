@@ -3,7 +3,7 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX prov: <http://www.w3.org/ns/prov#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-select ?label  (count(?e) as ?events) (count(?upcoming) as ?upcoming_events) (group_concat( distinct ?by ;separator = ', ') as ?attribution)  ?g  
+select ?datafeed (count(?upcoming) as ?upcoming_events) (count(?e) as ?events)   ?g  
 
 where {
     graph ?g {
@@ -18,9 +18,6 @@ where {
     OPTIONAL {
         ?g rdfs:label ?datafeed 
     }
-    OPTIONAL {
-        ?g prov:wasAttributedTo/rdfs:label ?by  
-    }
-    bind(coalesce(?datafeed, CONCAT("JSON-LD from ",str(?g))) as ?label)
+
     
-} group by ?g ?label  order by DESC(?upcoming_events)
+} group by ?g ?datafeed  order by DESC(?upcoming_events)
