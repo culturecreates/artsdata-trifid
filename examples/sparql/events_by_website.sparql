@@ -2,22 +2,17 @@ PREFIX schema: <http://schema.org/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX prov: <http://www.w3.org/ns/prov#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-
-select ?datafeed (count(?upcoming) as ?upcoming_events) (count(?e) as ?events)   ?g  
-
+select ?datafeed (count(?upcoming) as ?upcoming_events) (count(?e) as ?events)   ?graph  
 where {
-    graph ?g {
-        ?e a schema:Event ;
-           schema:startDate ?date .
+  graph ?graph {
+    ?e  schema:startDate ?date .
+    optional{
+      bind(?date as ?upcoming)
+      filter(?upcoming >= now()  )
     }
-    optional {
-        ?e schema:startDate ?upcoming .
-        filter(?upcoming >= now() || STRDT(str(?upcoming), xsd:dateTime) >= now() )
-    }
-
-    OPTIONAL {
-        ?g rdfs:label ?datafeed 
-    }
-
-    
-} group by ?g ?datafeed  order by DESC(?upcoming_events)
+  }
+  ?e a schema:Event  .
+  OPTIONAL {
+    ?graph rdfs:label ?datafeed 
+  }
+} group by ?graph ?datafeed  order by DESC(?upcoming_events)
