@@ -8,7 +8,7 @@ where {
     ?e  schema:startDate ?date .
     optional{
       bind(?date as ?upcoming)
-      filter(?upcoming >= now()  )
+      filter( strdt(str(?upcoming), xsd:dateTime) >= now() )
     }
   }
   ?e a schema:Event  .
