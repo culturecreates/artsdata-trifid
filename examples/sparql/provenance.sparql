@@ -1,5 +1,4 @@
 # Graphs used in Artsdata.ca and their provenance.
-
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX prov: <http://www.w3.org/ns/prov#>
@@ -9,35 +8,41 @@ PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX dataid: <http://dataid.dbpedia.org/ns/core#>
 PREFIX dct: <http://purl.org/dc/terms/>
 
-select ?graph ?label  ?date   ?softwareName  ?wasDerivedFrom  ?associatedAgent ?datasetLicense
-
-where { 
- ?graph a prov:Entity ;
-       prov:generatedAtTime ?date .
- 
-  filter not exists {
+select ?graph ?label  ?date ?softwareName ?associatedAgent ?datasetLicense ?downloadURL
+where {
+    ?graph a prov:Entity ;
+           prov:generatedAtTime ?date .
+    filter not exists {
         ?graph  prov:generatedAtTime ?date2 .
-         filter (?date2 > ?date )
+        filter (?date2 > ?date )
     }
-
-  OPTIONAL { 
-    ?graph prov:wasAttributedTo ?contributor_uri . 
-    ?contributor_uri a schema:Organization ;
-        schema:name ?contributorName ;
-        schema:email ?contributorEmail .}
-  OPTIONAL { 
-    ?graph prov:wasAttributedTo ?tool .
-    ?tool a prov:SoftwareAgent ;
-        schema:name ?softwareName . }
-  OPTIONAL { ?graph prov:wasDerivedFrom ?wasDerivedFrom . }
-  OPTIONAL { ?wasDerivedFrom dataid:associatedAgent/rdfs:label ?associatedAgent }
-  OPTIONAL { ?wasDerivedFrom foaf:primaryTopic/dct:license ?datasetLicense }
-  OPTIONAL {?graph  rdfs:label ?label . }
-  OPTIONAL {?graph  schema:description ?comment . }
-  # OPTIONAL {?wasDerivedFrom  foaf:primaryTopic/dcat:distribution/dcat:downloadURL ?sourceDownloadURL . }
-  BIND( URI(CONCAT("http://db.artsdata.ca/repositories/artsdata/rdf-graphs/service?graph=",str(?graph))) as ?downloadURL)
-                                                                                           
+    OPTIONAL {
+        ?graph prov:wasAttributedTo ?contributor_uri .
+        ?contributor_uri a schema:Organization ;
+                         schema:name ?contributorName ;
+                         schema:email ?contributorEmail .
+    }
+    OPTIONAL {
+        ?graph prov:wasAttributedTo ?tool .
+        ?tool a prov:SoftwareAgent ;
+              schema:name ?softwareName .
+    }
+    OPTIONAL {
+        ?graph prov:wasDerivedFrom ?wasDerivedFrom .
+        ?wasDerivedFrom dataid:associatedAgent/rdfs:label ?associatedAgent 
+    }
+    OPTIONAL {
+        ?graph prov:wasDerivedFrom/foaf:primaryTopic/dct:license ?datasetLicense 
+    }
+    OPTIONAL {
+        ?graph  rdfs:label ?label .
+    }
+    OPTIONAL {
+        ?graph  schema:description ?comment .
+    }
+    OPTIONAL {
+        ?graph prov:wasDerivedFrom/foaf:primaryTopic/dcat:distribution/dcat:downloadURL ?sourceDownloadURL .
+    }
+    BIND( URI(CONCAT("http://db.artsdata.ca/repositories/artsdata/rdf-graphs/service?graph=",str(?graph))) as ?downloadURL)
 } 
 ORDER BY DESC(?date)
-LIMIT 100 
-
