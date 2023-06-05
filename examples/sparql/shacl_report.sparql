@@ -1,8 +1,9 @@
 # This SPARQL counts the violations per website reported by Artsdata SHACL file
-
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
 PREFIX schema: <http://schema.org/>
 PREFIX shacl: <http://www.w3.org/ns/shacl#>
-select ?website ?graph ?conforms (count(?report) as ?violations)
+select ?website ?graph ?conforms (count(?report) as ?violations) ?explanation 
 where {
   graph ?graph {
     ?s a shacl:ValidationReport ;
@@ -12,4 +13,6 @@ where {
     }
   }
   ?graph schema:name ?website .
-} group by ?graph ?s  ?conforms ?website order by DESC(?violations)
+  bind(URI(concat("http://api.artsdata.ca/databus/validate?downloadFile=.ttl&downloadUrl=http://db.artsdata.ca/repositories/artsdata/statements?context=%3C",str(?graph),"%3E")) as ?explanation)
+  # Fullt report: http://api.artsdata.ca/databus/validate?fullReport=true
+} group by ?graph ?s  ?conforms ?website  ?explanation  order by DESC(?violations)
