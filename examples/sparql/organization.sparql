@@ -1,3 +1,5 @@
+# Organizations in Artsdata.ca core dataset
+
 PREFIX schema: <http://schema.org/>
 
 SELECT  * 
