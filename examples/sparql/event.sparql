@@ -1,15 +1,15 @@
 # Upcoming events in Artsdata.ca
 
 PREFIX schema: <http://schema.org/>
-SELECT DISTINCT  ?start ?status ?mode (sample(?label) as ?name)  (sample(?url) as ?webpage)
+SELECT *
 WHERE {
-  ?e a schema:Event ;
+  ?event a schema:Event ;
      schema:startDate ?start ;
      schema:name ?label ;
+     schema:location ?location ;
      schema:url ?url ;
      schema:eventStatus ?status ;
      schema:eventAttendanceMode ?mode .
-  FILTER(?start > 'DATE_PLACEHOLDER'^^xsd:dateTime)
-} 
-GROUP BY ?start ?status ?mode
-LIMIT 1000
+  FILTER(?start > now())
+}  ORDER BY ?start
+
