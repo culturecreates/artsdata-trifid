@@ -1,4 +1,4 @@
-# People with ArtsdataID
+# People with ArtsdataID and WikidataID who have performed at recent events
 
 PREFIX schema: <http://schema.org/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>

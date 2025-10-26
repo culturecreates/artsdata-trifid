@@ -1,4 +1,4 @@
-# Upcoming events in Artsdata.ca
+# Upcoming events in Artsdata.ca core dataset
 
 PREFIX schema: <http://schema.org/>
 SELECT *
@@ -8,8 +8,7 @@ WHERE {
      schema:name ?label ;
      schema:location ?location ;
      schema:url ?url ;
-     schema:eventStatus ?status ;
-     schema:eventAttendanceMode ?mode .
+     schema:eventStatus ?status .
   FILTER(?start > now())
 }  ORDER BY ?start
 
