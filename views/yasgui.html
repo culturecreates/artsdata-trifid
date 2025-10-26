@@ -11,23 +11,16 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12">
-        <h2>SPARQL Query Endpoint</h2>
-        <p>Welcome to the Artsdata.ca SPARQL endpoint. Use the interface below to run SPARQL queries on the Artsdata knowledge graph.</p>
-        <button id="toggleSampleSparql" class="btn btn-info" type="button" style="margin-bottom:10px;">
+         <button id="toggleSampleSparql" class="btn btn-info" type="button" style="margin-bottom:10px;">
           Show Sample SPARQL Queries
         </button>
         <div id="sampleSparqlAccordion" style="display:none;">
           <div class="well" style="margin-top:10px;">
             <strong>Sample SPARQL queries:</strong><br>
             <a class="btn btn-warning btn" href="${get('config').sparqls.event}">Events</a>
-            <a class="btn btn-warning btn" href="${get('config').sparqls.events_by_website}">Events by website</a>
             <a class="btn btn-warning btn" href="${get('config').sparqls.artist}">Artists</a>
             <a class="btn btn-warning btn" href="${get('config').sparqls.organization}">Organizations</a>
             <a class="btn btn-warning btn" href="${get('config').sparqls.place}">Places</a>
-            <a class="btn btn-warning btn" href="${get('config').sparqls.provenance}">Provenance</a>
-            <a class="btn btn-warning btn" href="${get('config').sparqls.triple_count}">Triple Count</a>
-            <a class="btn btn-warning btn" href="${get('config').sparqls.catalog}">Meta Catalogs</a>
-            <a class="btn btn-warning btn" href="${get('config').sparqls.shacl_report}">SHACL Reports</a>
           </div>
         </div>
       </div>
