@@ -73,7 +73,7 @@ trifid.init(config).then(() => {
   const examples = './examples/sparql'
   fs.readdirSync(examples).forEach(file => {
     var name = file.split('.')[0]
-    var url = "/sparql/#query="
+    var url = "#query="
     url += encodeURIComponent(fs.readFileSync('./examples/sparql/' + file, 'utf8'))
     Object.keys(YasguiParams).forEach(function(key) {
       url += `&${key}=${encodeURIComponent(YasguiParams[key])}`

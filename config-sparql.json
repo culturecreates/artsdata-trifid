@@ -27,7 +27,8 @@
   "yasgui": {
     "default": {
       "path": "/sparql",
-      "urlShortener": "https://s.zazuko.com/api/v1/shorten"
+      "urlShortener": "https://s.zazuko.com/api/v1/shorten",
+      "template": "cwd:views/yasgui.html"
     }
   },
   "breakDown": {

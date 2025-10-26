@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  ${include('trifid:views/header.html')}
+  <title>SPARQL Query - Artsdata.ca</title>
+  <link rel="stylesheet" href="/css/home.css">
+  <link href="dist/yasgui.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  ${include('trifid:views/navigation.html')}
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <h2>SPARQL Query Endpoint</h2>
+        <p>Welcome to the Artsdata.ca SPARQL endpoint. Use the interface below to run SPARQL queries on the Artsdata knowledge graph.</p>
+        <button id="toggleSampleSparql" class="btn btn-info" type="button" style="margin-bottom:10px;">
+          Show Sample SPARQL Queries
+        </button>
+        <div id="sampleSparqlAccordion" style="display:none;">
+          <div class="well" style="margin-top:10px;">
+            <strong>Sample SPARQL queries:</strong><br>
+            <a class="btn btn-warning btn" href="${get('config').sparqls.event}">Events</a>
+            <a class="btn btn-warning btn" href="${get('config').sparqls.events_by_website}">Events by website</a>
+            <a class="btn btn-warning btn" href="${get('config').sparqls.artist}">Artists</a>
+            <a class="btn btn-warning btn" href="${get('config').sparqls.organization}">Organizations</a>
+            <a class="btn btn-warning btn" href="${get('config').sparqls.place}">Places</a>
+            <a class="btn btn-warning btn" href="${get('config').sparqls.provenance}">Provenance</a>
+            <a class="btn btn-warning btn" href="${get('config').sparqls.triple_count}">Triple Count</a>
+            <a class="btn btn-warning btn" href="${get('config').sparqls.catalog}">Meta Catalogs</a>
+            <a class="btn btn-warning btn" href="${get('config').sparqls.shacl_report}">SHACL Reports</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <!-- YASGUI will be rendered here by the plugin -->
+        <div id="yasgui"></div>
+      </div>
+    </div>
+  </div>
+  ${include('trifid:views/footer.html')}
+  <script src="dist/yasgui.min.js"></script>
+  <script type="text/javascript">
+    // Simple accordion for sample SPARQL queries
+    document.addEventListener('DOMContentLoaded', function() {
+      var btn = document.getElementById('toggleSampleSparql');
+      var section = document.getElementById('sampleSparqlAccordion');
+      if (btn && section) {
+        btn.addEventListener('click', function() {
+          if (section.style.display === 'none' || section.style.display === '') {
+            section.style.display = 'block';
+            btn.textContent = 'Hide Sample SPARQL Queries';
+          } else {
+            section.style.display = 'none';
+            btn.textContent = 'Show Sample SPARQL Queries';
+          }
+        });
+      }
+    });
+  </script>
+  <script type="text/javascript">
+    // set SPARQL endpoint URL
+    YASGUI.defaults.yasqe.sparql.endpoint = '${endpointUrl}';
+    var config = {"api":{}};
+    if (typeof urlShortener !== 'undefined' && urlShortener) {
+      config.api.urlShortener = urlShortener;
+    }
+    // Parse #query=... from URL hash
+    function getHashQuery() {
+      if (window.location.hash) {
+        var match = window.location.hash.match(/[#&]query=([^&]*)/);
+        if (match && match[1]) {
+          try {
+            return decodeURIComponent(match[1]);
+          } catch (e) {}
+        }
+      }
+      return null;
+    }
+    var yasgui = YASGUI(document.getElementById('yasgui'), config);
+    var query = getHashQuery();
+    if (query) {
+      // Set the query in the first tab
+      var tab = yasgui.getTab();
+      if (tab && tab.yasqe) {
+        tab.yasqe.setValue(query);
+      }
+    }
+  </script>
+  <script type="text/javascript">
+    // Force reload when clicking a /sparql/#query... link, even if already on /sparql/
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('a.btn.btn-warning').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+        console.log('Clicked link:', href);
+          var href = link.getAttribute('href');
+          console.log('href:', href);
+          if (href && href.startsWith('#query')) {
+            // Always force reload, regardless of hash
+            console.log('Forcing reload for href:', href);
+            e.preventDefault();
+            //window.location.replace(window.location.pathname + href);
+            window.location.hash = href;
+            window.location.reload();
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
