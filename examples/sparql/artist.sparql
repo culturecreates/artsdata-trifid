@@ -3,13 +3,15 @@
 PREFIX schema: <http://schema.org/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-SELECT * WHERE {
-  ?ArtsdataID a schema:Person ;
+PREFIX dbo: <http://dbpedia.org/ontology/>
+SELECT ?ArtsdataID (SAMPLE(?name) AS ?artist_name) (GROUP_CONCAT(DISTINCT str(?occupation); separator=", ") AS ?occupations) ?WikidataID (SAMPLE(?event) AS ?performed_event) 
+{
+   VALUES ?artist_type { schema:Person schema:Organization}
+  ?ArtsdataID a ?artist_type ;
     schema:name ?name .
-  FILTER (regex(str(?ArtsdataID), "artsdata.ca/resource")) 
+  ?event schema:performer ?ArtsdataID .
   OPTIONAL {  ?ArtsdataID schema:sameAs ?WikidataID .  FILTER (regex(str(?WikidataID), "wikidata.org/entity")) }
   OPTIONAL { ?ArtsdataID schema:hasOccupation ?occupation . }
 } 
-ORDER BY DESC(?WikidataID)  ?name
-
+GROUP BY ?ArtsdataID  ?WikidataID 
 LIMIT 1000
