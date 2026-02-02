@@ -3,8 +3,6 @@
 PREFIX schema: <http://schema.org/>
 
 SELECT  * 
-FROM <http://kg.artsdata.ca/Place>
-FROM <http://laval.footlight.io/Place>
 WHERE {
   
   ?ArtsdataID a schema:Place  .
