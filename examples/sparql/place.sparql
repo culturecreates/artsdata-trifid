@@ -20,4 +20,4 @@ WHERE {
 } 
 ORDER BY ASC(?ArtsdataID)
 
-LIMIT 500
+LIMIT 100

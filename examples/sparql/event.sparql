@@ -2,6 +2,7 @@
 
 PREFIX schema: <http://schema.org/>
 SELECT *
+FROM <http://kg.artsdata.ca/core>
 WHERE {
   ?event a schema:Event ;
      schema:startDate ?start ;
@@ -11,4 +12,4 @@ WHERE {
      schema:eventStatus ?status .
   FILTER(?start > now())
 }  ORDER BY ?start
-
+LIMIT 100

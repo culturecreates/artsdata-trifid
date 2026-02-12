@@ -13,3 +13,4 @@ WHERE {
 } 
 
 ORDER BY ?name 
+LIMIT 100

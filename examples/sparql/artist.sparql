@@ -14,4 +14,4 @@ SELECT ?ArtsdataID (SAMPLE(?name) AS ?artist_name) (GROUP_CONCAT(DISTINCT str(?o
   OPTIONAL { ?ArtsdataID schema:hasOccupation ?occupation . }
 } 
 GROUP BY ?ArtsdataID  ?WikidataID 
-LIMIT 1000
+LIMIT 100
