@@ -117,6 +117,7 @@
       "middleware": "format-to-accept"
     },
     "rewrite": {
+      "enabled": false,
       "priority": 80,
       "module": "trifid-core:./plugins/middleware",
       "middleware": "camouflage-rewrite"
