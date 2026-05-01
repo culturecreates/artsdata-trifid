@@ -2,9 +2,10 @@
   "baseConfig": "trifid:config-sparql.json",
   "sparqlEndpointUrl": "https://db.artsdata.ca/repositories/artsdata",
   "datasetBaseUrl": "http://kg.artsdata.ca/",
-  "plugins": {
-    "rewrite": {
-      "enabled": false
+  "rewrite": {
+    "root": {
+      "rewriteContent": false,
+      "rewriteHeaders": false
     }
   }
 }
