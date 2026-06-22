@@ -3,6 +3,7 @@
 PREFIX schema: <http://schema.org/>
 
 SELECT  * 
+FROM <http://kg.artsdata.ca/core>
 WHERE {
   ?ArtsdataID a schema:Organization  ; 
     schema:name ?name .
