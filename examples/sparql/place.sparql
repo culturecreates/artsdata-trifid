@@ -1,24 +1,23 @@
 # Places in Artsdata.ca core dataset
 
 PREFIX schema: <http://schema.org/>
+PREFIX adp: <http://kg.artsdata.ca/plugin#>
+PREFIX ado: <http://kg.artsdata.ca/ontology/>
 
-SELECT  ?ArtsdataID (MAX(?label) as ?label) 
-FROM <http://kg.artsdata.ca/core>
+SELECT  ?ArtsdataID ?name  ?locality  ?containedIn ?WikidataID 
+
 WHERE {
   
-  ?ArtsdataID a schema:Place  .
-  
-  ?ArtsdataID schema:name ?label .
-  
-  OPTIONAL { ?ArtsdataID schema:containedInPlace/schema:name ?containedIn  filter (lang(?containedIn) = "") }
-  OPTIONAL { ?ArtsdataID schema:sameAs ?WikidataID . filter (regex(str(?WikidataID), "wikidata.org/entity")) }
-  OPTIONAL { ?ArtsdataID schema:address/schema:streetAddress ?address . }
-  OPTIONAL { ?ArtsdataID schema:address/schema:addressLocality ?locality . }
-  OPTIONAL { ?ArtsdataID schema:address/schema:addressCountry ?country . }
+  ?ArtsdataID a ado:Place  .
 
-  filter (isURI(?ArtsdataID))
+  BIND(adp:prefLangLiteral(?ArtsdataID, schema:name, "fr en") AS ?name)  
+  OPTIONAL { ?ArtsdataID schema:containedInPlace ?containedIn }
+  OPTIONAL { ?ArtsdataID schema:sameAs ?WikidataID . filter (regex(str(?WikidataID), "wikidata.org/entity")) }
+  
+  ?ArtsdataID schema:address ?address .
+  BIND(adp:prefLangLiteral(?address, schema:addressLocality, "fr") AS ?locality)  
 } 
-GROUP BY (?ArtsdataID)
+
 ORDER BY ASC(?ArtsdataID)
 
 LIMIT 100

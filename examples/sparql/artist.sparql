@@ -1,17 +1,33 @@
-# People with ArtsdataID and WikidataID who have performed at recent events
+# People performing at upcoming events with Artsdata ID and Wikidata ID 
 
 PREFIX schema: <http://schema.org/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX dbo: <http://dbpedia.org/ontology/>
-SELECT ?ArtsdataID (SAMPLE(?name) AS ?artist_name) (GROUP_CONCAT(DISTINCT str(?occupation); separator=", ") AS ?occupations) ?WikidataID (SAMPLE(?event) AS ?performed_event) 
+PREFIX adp: <http://kg.artsdata.ca/plugin#>
+
+SELECT ?ArtsdataID  
+(adp:prefLangLiteral(?ArtsdataID, schema:name) AS ?artist_name)  
+(GROUP_CONCAT(DISTINCT str(?occupation); separator=", ") AS ?occupations) 
+?WikidataID 
+(SAMPLE(?event) AS ?recent_event) 
+WHERE
 {
-   VALUES ?artist_type { schema:Person schema:Organization}
-  ?ArtsdataID a ?artist_type ;
-    schema:name ?name .
-  ?event schema:performer ?ArtsdataID .
-  OPTIONAL {  ?ArtsdataID schema:sameAs ?WikidataID .  FILTER (regex(str(?WikidataID), "wikidata.org/entity")) }
-  OPTIONAL { ?ArtsdataID schema:hasOccupation ?occupation . }
+    VALUES ?artist_type {
+        schema:Person schema:Organization
+    }
+    ?ArtsdataID a ?artist_type .
+    ?event schema:performer ?ArtsdataID ;
+    schema:startDate ?startDate .
+    FILTER  (?startDate > now() )
+    OPTIONAL {
+        ?ArtsdataID schema:sameAs ?WikidataID .
+        FILTER (regex(str(?WikidataID), "wikidata.org/entity")) 
+    }
+    OPTIONAL {
+        ?ArtsdataID schema:hasOccupation ?occupation .
+    }
 } 
 GROUP BY ?ArtsdataID  ?WikidataID 
+ORDER BY ?startDate
 LIMIT 100
