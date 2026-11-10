@@ -1,15 +1,19 @@
 # Upcoming events in Artsdata.ca core dataset
 
 PREFIX schema: <http://schema.org/>
+PREFIX adp: <http://kg.artsdata.ca/plugin#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX ado: <http://kg.artsdata.ca/ontology/>
+
 SELECT *
-FROM <http://kg.artsdata.ca/core>
 WHERE {
-  ?event a schema:Event ;
-     schema:startDate ?start ;
-     schema:name ?label ;
-     schema:location ?location ;
-     schema:url ?url ;
-     schema:eventStatus ?status .
-  FILTER(?start > now())
+    ?event a ado:Event ;
+    schema:startDate ?start ;
+    schema:location ?location ;
+    schema:url ?url ;
+    schema:eventStatus ?status ;
+    ado:hasEventTypeConcept   ?type .
+    BIND(adp:prefLangLiteral(?event, schema:name) AS ?name)  
+    FILTER(?start > now())
 }  ORDER BY ?start
 LIMIT 100

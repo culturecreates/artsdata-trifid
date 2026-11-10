@@ -1,17 +1,16 @@
 # Organizations in Artsdata.ca core dataset
-
 PREFIX schema: <http://schema.org/>
-
+PREFIX adp: <http://kg.artsdata.ca/plugin#>
+PREFIX ado: <http://kg.artsdata.ca/ontology/>
 SELECT  * 
-FROM <http://kg.artsdata.ca/core>
 WHERE {
-  ?ArtsdataID a schema:Organization  ; 
-    schema:name ?name .
-  OPTIONAL { 
-    ?ArtsdataID schema:sameAs ?WikidataID . 
-    filter (regex(str(?WikidataID), "wikidata.org/entity")) 
-  }
+    ?ArtsdataID a ado:Organization ;
+    ado:hasOrganizationTypeConcept ?type .
+    BIND(adp:prefLangLiteral(?ArtsdataID, schema:name) AS ?name)  
+    OPTIONAL {
+        ?ArtsdataID schema:sameAs ?WikidataID .
+        filter (regex(str(?WikidataID), "wikidata.org/entity")) 
+    }
 } 
-
 ORDER BY ?name 
 LIMIT 100
