@@ -1,23 +1,20 @@
-# People performing at upcoming events with Artsdata ID and Wikidata ID 
-
+# People performing at upcoming events
 PREFIX schema: <http://schema.org/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX dbo: <http://dbpedia.org/ontology/>
 PREFIX adp: <http://kg.artsdata.ca/plugin#>
-
+PREFIX ado: <http://kg.artsdata.ca/ontology/>
 SELECT ?ArtsdataID  
 (adp:prefLangLiteral(?ArtsdataID, schema:name) AS ?artist_name)  
 (GROUP_CONCAT(DISTINCT str(?occupation); separator=", ") AS ?occupations) 
 ?WikidataID 
-(SAMPLE(?event) AS ?recent_event) 
+(SAMPLE(?event) AS ?upcoming_event) 
 WHERE
 {
-    VALUES ?artist_type {
-        schema:Person schema:Organization
-    }
-    ?ArtsdataID a ?artist_type .
-    ?event schema:performer ?ArtsdataID ;
+    ?ArtsdataID a ado:Person .
+    ?event a ado:Event ;
+    schema:performer ?ArtsdataID ;
     schema:startDate ?startDate .
     FILTER  (?startDate > now() )
     OPTIONAL {
@@ -29,5 +26,4 @@ WHERE
     }
 } 
 GROUP BY ?ArtsdataID  ?WikidataID 
-ORDER BY ?startDate
 LIMIT 100
